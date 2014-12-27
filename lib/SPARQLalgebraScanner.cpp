@@ -5129,7 +5129,7 @@ int yyFlexLexer::yy_get_next_buffer()
 /* %if-c++-only */
 
 #ifndef _MSC_VER
-extern "C" int isatty (int ) throw();
+/* extern "C" int isatty (int ) throw(); */
 #endif
 
 /* %endif */

@@ -13,7 +13,7 @@
 #   http://xmlsoft.org/
 #   expat 1.5.2
 #   http://sourceforge.net/projects/expat/
-XML_PARSER= EXPAT1
+XML_PARSER= LIBXML2
 
 # CONSOLE_ENCODING: UTF8 |  - what encoding to use for console output
 # controls whether tables should be printed like "┌──┬┐" or "+--++"
@@ -53,7 +53,7 @@ HTTP_SERVER= ASIO
 #   ODBC
 #   
 #SQL_CLIENTS= MYSQL|ORACLE|POSTGRES|MSSQL|ODBC
-SQL_CLIENTS= MYSQL|POSTGRES|MSSQL|ODBC
+SQL_CLIENTS= MYSQL
 #SQL_DM_TESTS?= mysql://root@/DM postgres://DM:DM@/DM oracle://DM:DM@localhost/ORCL
 SQL_DM_TESTS?= mysql://root@/DM postgres://DM:DM@/DM
 DM_BASE_URI?= http://example.com/base/
@@ -67,7 +67,7 @@ DM_BASE_URI?= http://example.com/base/
 # e.g. libboost_regex.a -> libboost_regex-gcc34-mt-1_38.a
 #BOOST_SUFFIX=-gcc34-mt-1_38
 # or you may need to link to multi-threaded versions of boost libraries:
-BOOST_SUFFIX=
+BOOST_SUFFIX=-mt
 
 # If you are using a version of BOOST older than 1.42, force the use
 # of the older version of boost log
@@ -75,11 +75,13 @@ BOOST_SUFFIX=
 
 ##### INCLUDES: /some/path... - Directories containing additional headers #####
 # You must prefix each directory with "-I" and separate them with spaces.
-#OSX: INCLUDES += -I/opt/local/include/ -I/opt/local/include/mysql5/
-#OSX: LIBS += -L/opt/local/lib/ -L/opt/local/lib/mysql5/
-# CFLAGS += -mmacosx-version-min=10.5
-#OSX: CFLAGS += -arch x86_64
-#OSX: LDFLAGS += -mmacosx-version-min=10.5 -L/opt/local/lib/mysql5/mysql/ -arch x86_64
+INCLUDES += -I.
+INCLUDES += -I/opt/local/include/
+INCLUDES += -I/opt/local/include/mysql55/
+LIBS += -L/opt/local/lib/
+LIBS += -L/opt/local/lib/mysql55/mysql/
+OSX: CFLAGS += -arch x86_64
+OSX: LDFLAGS += -mmacosx-version-min=10.5 -L/opt/local/lib/mysql5/mysql/ -arch x86_64
 # Note that you may also set INCLUDES, LIBINC, etc on the command line:
 # INCLUDES=-I/tmp/dlib-17.11 LIBINC="-L.. -lexpat1" make -j 4 t_DAWG
 
@@ -94,7 +96,7 @@ NLS_LANG=_.UTF8
 
 
 # boost-log on linux requires clock_gettime so need a -lrt after -lboost-log
-LRT=-lrt
+# LRT=-lrt
 
 # LINK: STATIC | DYNAMIC - build executables requiring dynamic libraries . ####
 # Needed when building any executables.
@@ -104,10 +106,7 @@ LRT=-lrt
 # link to ltdl and dl after odbc: LDFLAGS += -lodbc -lltdl -ldl
 LINK= DYNAMIC
 
+flex=/opt/local/bin/flex
+bison=/opt/local/bin/bison
 
-#OSX: flex=/opt/local/bin/flex
-#OSX: bison=/opt/local/bin/bison
-
-CRYPTLIB= ../cryptopp562
-INOTIFYLIB=yesplease
-
+# CRYPTLIB= ../cryptopp561

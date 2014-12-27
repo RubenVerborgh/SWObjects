@@ -31,9 +31,7 @@ LUA_HOME?=/usr/include/lua5.1
 PERL_HOME?=/usr/lib/perl/5.10.1
 JAVA_HOME?=/usr/lib/jvm/java-6-openjdk
 # GNU Make 3.81 seems to have a built-in echo which doesn't swallow "-e"
-#ECHO?=`which echo`
-#OSX: ECHO?= /bin/echo
-ECHO ?= echo
+ECHO:= /bin/echo
 #LIBS
 DEBUG?=-g -O0
 OPT=-fPIC
@@ -189,7 +187,7 @@ all:   lib test
 
 
 config.h: CONFIG
-	$(ECHO) "/* Generated from CONFIG.\n" \
+	echo "/* Generated from CONFIG.\n" \
 	"* In order to keep your link directives appropriate for the features enabled\n" \
 	"* by defines in this header, you should edit CONFIG and then \`make config.h\`.\n" \
 	"*/\n" \
@@ -216,7 +214,7 @@ TOONOISEY=-ansi
 # fussiness directives removed from CFLAGS:
 #   -std=c++0x -- can't count on 0x on all platforms
 #   -pedantic-errors -- breaks on OSX, aborts on #pragma
-CFLAGS += $(DEFS) $(OPT) $(DEBUG) $(WARN) $(INCLUDES) -pipe -Wno-empty-body -Wno-missing-field-initializers -Wwrite-strings -Wno-deprecated -Wno-unused -Wno-non-virtual-dtor -Wno-variadic-macros -ftemplate-depth-128 -fno-merge-constants
+CFLAGS += $(DEFS) $(OPT) $(DEBUG) $(WARN) $(INCLUDES) -pipe -Wno-empty-body -Wno-missing-field-initializers -Wwrite-strings -Wno-deprecated -Wno-unused -Wno-non-virtual-dtor -Wno-variadic-macros -ftemplate-depth-128
 CXXFLAGS += $(CFLAGS)
 
 ### absolutely neccessry for c++ linking ###
